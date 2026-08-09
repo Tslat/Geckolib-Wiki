@@ -103,7 +103,7 @@ First, we'll need to put a `MutableObject` in your item class so it can hold the
 ```java
 public class ExampleItem extends Item implements GeoItem {
     //highlight-next-line
-    public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+    public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public ExampleItem(Properties properties) {
@@ -118,7 +118,7 @@ Then, we'll need to provide that to the `GeoRenderProvider` consumer, instead of
 
 ```java
 public class ExampleItem extends Item implements GeoItem {
-    public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+    public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
 
     // ...
 
@@ -130,6 +130,24 @@ public class ExampleItem extends Item implements GeoItem {
     // ...
 }
 ```
+
+:::warning
+Make sure you remove the `GeoRenderProvider` reference from `createGeoRenderer`:
+```java
+public class ExampleItem extends Item implements GeoItem {
+    public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
+
+    // ...
+
+    @Override
+    //highlight-next-line
+    public void createGeoRenderer(Consumer consumer) {
+        consumer.accept(this.geoRenderProvider.getValue());
+    }
+    // ...
+}
+```
+:::
 
 ### Client Setup Class
 Lastly, in your mod's client setup, you'll need to set the `geoRenderProvider` in your item's instance.
