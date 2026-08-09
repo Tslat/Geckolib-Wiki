@@ -102,9 +102,9 @@ First, we'll need to put a `MutableObject` in your item class so it can hold the
 
 ```java
 public class ExampleItem extends Item implements GeoItem {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     //highlight-next-line
     public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
-    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     public ExampleItem(Properties properties) {
         super(properties);
@@ -118,6 +118,7 @@ Then, we'll need to provide that to the `GeoRenderProvider` consumer, instead of
 
 ```java
 public class ExampleItem extends Item implements GeoItem {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
 
     // ...
@@ -135,6 +136,7 @@ public class ExampleItem extends Item implements GeoItem {
 Make sure you remove the `GeoRenderProvider` reference from `createGeoRenderer`:
 ```java
 public class ExampleItem extends Item implements GeoItem {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
 
     // ...

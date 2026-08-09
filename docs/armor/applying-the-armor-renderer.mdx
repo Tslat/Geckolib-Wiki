@@ -102,9 +102,9 @@ First, we'll need to put a `MutableObject` in your item class so it can hold the
 
 ```java
 public class ExampleArmorItem extends Item implements GeoItem {
-    //highlight-next-line
-    public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    //highlight-next-line
+    public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
 
     public ExampleArmorItem(ArmorMaterial material, ArmorType type, Properties properties) {
         super(properties.humanoidArmor(material, type));
@@ -118,7 +118,8 @@ Then, we'll need to provide that to the `GeoRenderProvider` consumer, instead of
 
 ```java
 public class ExampleArmorItem extends Item implements GeoItem {
-    public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
 
     // ...
 
@@ -130,6 +131,25 @@ public class ExampleArmorItem extends Item implements GeoItem {
     // ...
 }
 ```
+
+:::warning
+Make sure you remove the `GeoRenderProvider` reference from `createGeoRenderer`:
+```java
+public class ExampleArmorItem extends Item implements GeoItem {
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
+
+    // ...
+
+    @Override
+    //highlight-next-line
+    public void createGeoRenderer(Consumer consumer) {
+        consumer.accept(this.geoRenderProvider.getValue());
+    }
+    // ...
+}
+```
+:::
 
 ### Client Setup Class
 Lastly, in your mod's client setup, you'll need to set the `geoRenderProvider` in your item's instance.
