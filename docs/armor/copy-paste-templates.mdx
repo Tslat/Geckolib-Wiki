@@ -84,7 +84,7 @@ See below for some existing code you can use to get you started.
                 @Override
                 public void onInitializeClient() {
                     ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
-                        private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM));
+                        private final Supplier<GeoArmorRenderer<ExampleItem, HumanoidRenderState>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM));
 
                         @Override
                         public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
@@ -99,7 +99,7 @@ See below for some existing code you can use to get you started.
                 @SubscribeEvent
                 public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
                     ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
-                        private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
+                        private final Supplier<GeoArmorRenderer<ExampleItem, HumanoidRenderState>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
 
                         @Override
                         public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
@@ -114,7 +114,7 @@ See below for some existing code you can use to get you started.
                 @SubscribeEvent
                 public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
                     ItemRegistry.EXAMPLE_ITEM.geoRenderProvider.setValue(new GeoRenderProvider() {
-                        private final Supplier<GeoArmorRenderer<ExampleItem>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
+                        private final Supplier<GeoArmorRenderer<ExampleItem, HumanoidRenderState>> renderer = Suppliers.memoize(() -> new GeoArmorRenderer<>(ItemRegistry.EXAMPLE_ARMOR_ITEM.get()));
 
                         @Override
                         public @Nullable GeoArmorRenderer<?, ?> getGeoArmorRenderer(ItemStack itemStack, EquipmentSlot equipmentSlot) {
