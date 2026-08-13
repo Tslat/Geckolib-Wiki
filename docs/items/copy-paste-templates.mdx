@@ -51,7 +51,7 @@ See below for some existing code you can use to get you started.
     <TabItem value="split" label="Split Sources">
         ```java title="Item Class"
         public class ExampleItem extends Item implements GeoItem {
-            public final MutableObject<GeoRenderProvider> geoRenderProvider = new MutableObject<>();
+            public final MutableObject<Object> geoRenderProvider = new MutableObject<>();
             private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
             public ExampleItem(Properties properties) {
@@ -62,7 +62,7 @@ See below for some existing code you can use to get you started.
             }
 
             @Override
-            public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+            public void createGeoRenderer(Consumer consumer) {
                 consumer.accept(this.geoRenderProvider.getValue());
             }
 
